@@ -17,15 +17,15 @@ namespace DAL.Models
 
         [Key]
         [Column("LoaiID")]
-        public int LoaiId { get; set; }
+        public int LoaiID { get; set; }
         [StringLength(255)]
         public string TenLoai { get; set; } = null!;
         [StringLength(500)]
         public string? MotaLoai { get; set; }
         [Column("ParentID")]
-        public int? ParentId { get; set; }
+        public int? ParentID { get; set; }
 
-        [ForeignKey("ParentId")]
+        [ForeignKey("ParentID")]
         [InverseProperty("InverseParent")]
         public virtual Loai? Parent { get; set; }
         [InverseProperty("Parent")]

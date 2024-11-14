@@ -2,7 +2,7 @@
 
 namespace DAL.Interfaces
 {
-    public interface ICTDonHangRepository : IRepository<CtdonHang>
+    public interface ICTDonHangRepository : IRepository<CTDonHang>
     {
     }
 }

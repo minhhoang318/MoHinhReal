@@ -7,26 +7,26 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Models
 {
     [Table("NCC")]
-    public partial class Ncc
+    public partial class NCC
     {
-        public Ncc()
+        public NCC()
         {
             DonNhaps = new HashSet<DonNhap>();
         }
 
         [Key]
         [Column("NCCID")]
-        public int Nccid { get; set; }
+        public int NCCID { get; set; }
         [Column("TenNCC")]
         [StringLength(255)]
-        public string TenNcc { get; set; } = null!;
+        public string TenNCC { get; set; } = null!;
         [StringLength(255)]
         public string? DiaChi { get; set; }
         [Column("SDT")]
         [StringLength(50)]
-        public string? Sdt { get; set; }
+        public string? SDT { get; set; }
 
-        [InverseProperty("Ncc")]
+        [InverseProperty("NCC")]
         public virtual ICollection<DonNhap> DonNhaps { get; set; }
     }
 }

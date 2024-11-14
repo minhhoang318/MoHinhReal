@@ -3,9 +3,9 @@ using DAL.Models;
 
 namespace DAL
 {
-    public class CTDonNhapRepository : Repository<CtdonNhap>, ICTDonNhapRepository
+    public class CTDonNhapRepository : Repository<CTDonNhap>, ICTDonNhapRepository
     {
-        public CTDonNhapRepository(CSDLBanMoHinh context) : base(context)
+        public CTDonNhapRepository(BanMoHinh context) : base(context)
         {
         }
     }

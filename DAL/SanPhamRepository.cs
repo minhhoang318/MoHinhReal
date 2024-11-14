@@ -10,7 +10,7 @@ namespace DAL
 {
     public class SanPhamRepository : Repository<SanPham>, ISanPhamRepository
     {
-        public SanPhamRepository(CSDLBanMoHinh context) : base(context)
+        public SanPhamRepository(BanMoHinh context) : base(context)
         {
         }
     }

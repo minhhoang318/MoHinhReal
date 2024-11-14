@@ -5,7 +5,7 @@ namespace DAL
 {
     public class KhoRepository : Repository<Kho>, IKhoRepository
     {
-        public KhoRepository(CSDLBanMoHinh context) : base(context)
+        public KhoRepository(BanMoHinh context) : base(context)
         {
         }
     }

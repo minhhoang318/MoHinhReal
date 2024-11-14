@@ -3,9 +3,9 @@ using DAL.Models;
 
 namespace DAL
 {
-    public class NCCRepository : Repository<Ncc>, INCCRepository
+    public class NCCRepository : Repository<NCC>, INCCRepository
     {
-        public NCCRepository(CSDLBanMoHinh context) : base(context)
+        public NCCRepository(BanMoHinh context) : base(context)
         {
         }
     }

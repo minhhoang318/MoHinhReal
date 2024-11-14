@@ -11,17 +11,17 @@ namespace DAL.Models
     {
         [Key]
         [Column("KhoID")]
-        public int KhoId { get; set; }
+        public int KhoID { get; set; }
         [Column("SanPhamID")]
-        public int SanPhamId { get; set; }
+        public int SanPhamID { get; set; }
         [Column("SLTon")]
-        public int Slton { get; set; }
+        public int SLTon { get; set; }
         [Column(TypeName = "date")]
-        public DateTime? NgayNhapKho { get; set; }
+        public DateTime NgayNhapKho { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal? GiaNhap { get; set; }
+        public decimal GiaNhap { get; set; }
 
-        [ForeignKey("SanPhamId")]
+        [ForeignKey("SanPhamID")]
         [InverseProperty("Khos")]
         public virtual SanPham SanPham { get; set; } = null!;
     }

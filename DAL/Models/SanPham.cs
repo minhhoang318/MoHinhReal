@@ -11,14 +11,14 @@ namespace DAL.Models
     {
         public SanPham()
         {
-            CtdonHangs = new HashSet<CtdonHang>();
-            CtdonNhaps = new HashSet<CtdonNhap>();
+            CTDonHangs = new HashSet<CTDonHang>();
+            CTDonNhaps = new HashSet<CTDonNhap>();
             Khos = new HashSet<Kho>();
         }
 
         [Key]
         [Column("SanPhamID")]
-        public int SanPhamId { get; set; }
+        public int SanPhamID { get; set; }
         [StringLength(255)]
         public string TenSanPham { get; set; } = null!;
         [StringLength(1000)]
@@ -26,18 +26,18 @@ namespace DAL.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal GiaBan { get; set; }
         [Column("LoaiID")]
-        public int? LoaiId { get; set; }
+        public int? LoaiID { get; set; }
         [Column("ImageURL")]
         [StringLength(500)]
-        public string? ImageUrl { get; set; }
+        public string? ImageURL { get; set; }
 
-        [ForeignKey("LoaiId")]
+        [ForeignKey("LoaiID")]
         [InverseProperty("SanPhams")]
         public virtual Loai? Loai { get; set; }
         [InverseProperty("SanPham")]
-        public virtual ICollection<CtdonHang> CtdonHangs { get; set; }
+        public virtual ICollection<CTDonHang> CTDonHangs { get; set; }
         [InverseProperty("SanPham")]
-        public virtual ICollection<CtdonNhap> CtdonNhaps { get; set; }
+        public virtual ICollection<CTDonNhap> CTDonNhaps { get; set; }
         [InverseProperty("SanPham")]
         public virtual ICollection<Kho> Khos { get; set; }
     }

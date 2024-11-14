@@ -11,15 +11,15 @@ namespace DAL.Models
     {
         [Key]
         [Column("ThanhToanID")]
-        public int ThanhToanId { get; set; }
+        public int ThanhToanID { get; set; }
         [Column("DonHangID")]
-        public int? DonHangId { get; set; }
+        public int DonHangID { get; set; }
         [StringLength(100)]
         public string PhuongThuc { get; set; } = null!;
         [Column(TypeName = "date")]
         public DateTime NgayThanhToan { get; set; }
 
-        [ForeignKey("DonHangId")]
+        [ForeignKey("DonHangID")]
         [InverseProperty("ThanhToans")]
         public virtual DonHang? DonHang { get; set; }
     }

@@ -11,15 +11,15 @@ namespace DAL.Models
     {
         public DonHang()
         {
-            CtdonHangs = new HashSet<CtdonHang>();
+            CTDonHangs = new HashSet<CTDonHang>();
             ThanhToans = new HashSet<ThanhToan>();
         }
 
         [Key]
         [Column("DonHangID")]
-        public int DonHangId { get; set; }
+        public int DonHangID { get; set; }
         [Column("KhachHangID")]
-        public int? KhachHangId { get; set; }
+        public int? KhachHangID { get; set; }
         [Column(TypeName = "date")]
         public DateTime NgayDat { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
@@ -27,11 +27,11 @@ namespace DAL.Models
         [StringLength(50)]
         public string? TrangThai { get; set; }
 
-        [ForeignKey("KhachHangId")]
+        [ForeignKey("KhachHangID")]
         [InverseProperty("DonHangs")]
         public virtual KhachHang? KhachHang { get; set; }
         [InverseProperty("DonHang")]
-        public virtual ICollection<CtdonHang> CtdonHangs { get; set; }
+        public virtual ICollection<CTDonHang> CTDonHangs { get; set; }
         [InverseProperty("DonHang")]
         public virtual ICollection<ThanhToan> ThanhToans { get; set; }
     }

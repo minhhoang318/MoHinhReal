@@ -3,7 +3,7 @@
 
 namespace DAL.Interfaces
 {
-    public interface INCCRepository : IRepository<Ncc>
+    public interface INCCRepository : IRepository<NCC>
     {
     }
 }

@@ -5,7 +5,7 @@ namespace DAL
 {
     public class ThanhToanRepository : Repository<ThanhToan>, IThanhToanRepository
     {
-        public ThanhToanRepository(CSDLBanMoHinh context) : base(context)
+        public ThanhToanRepository(BanMoHinh context) : base(context)
         {
         }
     }

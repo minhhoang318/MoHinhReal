@@ -5,7 +5,7 @@ namespace DAL
 {
     public class KhachHangRepository : Repository<KhachHang>, IKhachHangRepository
     {
-        public KhachHangRepository(CSDLBanMoHinh context) : base(context)
+        public KhachHangRepository(BanMoHinh context) : base(context)
         {
         }
     }

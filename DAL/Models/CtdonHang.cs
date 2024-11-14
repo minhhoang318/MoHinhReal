@@ -7,24 +7,24 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Models
 {
     [Table("CTDonHang")]
-    public partial class CtdonHang
+    public partial class CTDonHang
     {
         [Key]
         [Column("CTDonHangID")]
-        public int CtdonHangId { get; set; }
+        public int CTDonHangID { get; set; }
         [Column("DonHangID")]
-        public int? DonHangId { get; set; }
+        public int DonHangID { get; set; }
         [Column("SanPhamID")]
-        public int? SanPhamId { get; set; }
+        public int SanPhamID { get; set; }
         public int SoLuong { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
         public decimal GiaBan { get; set; }
 
-        [ForeignKey("DonHangId")]
-        [InverseProperty("CtdonHangs")]
+        [ForeignKey("DonHangID")]
+        [InverseProperty("CTDonHangs")]
         public virtual DonHang? DonHang { get; set; }
-        [ForeignKey("SanPhamId")]
-        [InverseProperty("CtdonHangs")]
+        [ForeignKey("SanPhamID")]
+        [InverseProperty("CTDonHangs")]
         public virtual SanPham? SanPham { get; set; }
     }
 }

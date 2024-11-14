@@ -5,7 +5,7 @@ namespace DAL
 {
     public class DonHangRepository : Repository<DonHang>, IDonHangRepository
     {
-        public DonHangRepository(CSDLBanMoHinh context) : base(context)
+        public DonHangRepository(BanMoHinh context) : base(context)
         {
         }
     }

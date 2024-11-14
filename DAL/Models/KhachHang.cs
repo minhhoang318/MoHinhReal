@@ -17,14 +17,14 @@ namespace DAL.Models
 
         [Key]
         [Column("KhachHangID")]
-        public int KhachHangId { get; set; }
+        public int KhachHangID { get; set; }
         [StringLength(255)]
         public string HoTen { get; set; } = null!;
         [StringLength(255)]
         public string Email { get; set; } = null!;
         [Column("SDT")]
         [StringLength(50)]
-        public string? Sdt { get; set; }
+        public string? SDT { get; set; }
         [StringLength(500)]
         public string? DiaChi { get; set; }
 

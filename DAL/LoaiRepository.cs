@@ -5,7 +5,7 @@ namespace DAL
 {
     public class LoaiRepository : Repository<Loai>, ILoaiRepository
     {
-        public LoaiRepository(CSDLBanMoHinh context) : base(context)
+        public LoaiRepository(BanMoHinh context) : base(context)
         {
         }
     }

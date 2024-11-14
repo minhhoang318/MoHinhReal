@@ -12,7 +12,7 @@ namespace DAL.Models
     {
         [Key]
         [Column("NguoiDungID")]
-        public int NguoiDungId { get; set; }
+        public int NguoiDungID { get; set; }
         [StringLength(255)]
         public string HoTen { get; set; } = null!;
         [StringLength(100)]

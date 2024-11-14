@@ -11,23 +11,23 @@ namespace DAL.Models
     {
         public DonNhap()
         {
-            CtdonNhaps = new HashSet<CtdonNhap>();
+            CTDonNhaps = new HashSet<CTDonNhap>();
         }
 
         [Key]
         [Column("DonNhapID")]
-        public int DonNhapId { get; set; }
+        public int DonNhapID { get; set; }
         [Column(TypeName = "date")]
         public DateTime NgayNhapHang { get; set; }
         [Column("NCCID")]
-        public int? Nccid { get; set; }
+        public int? NCCID { get; set; }
         [StringLength(50)]
         public string? TrangThai { get; set; }
 
-        [ForeignKey("Nccid")]
+        [ForeignKey("NCCID")]
         [InverseProperty("DonNhaps")]
-        public virtual Ncc? Ncc { get; set; }
+        public virtual NCC? NCC { get; set; }
         [InverseProperty("DonNhap")]
-        public virtual ICollection<CtdonNhap> CtdonNhaps { get; set; }
+        public virtual ICollection<CTDonNhap> CTDonNhaps { get; set; }
     }
 }

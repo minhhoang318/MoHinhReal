@@ -11,10 +11,10 @@ namespace DAL
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly CSDLBanMoHinh _context;
+        private readonly BanMoHinh _context;
         private readonly DbSet<T> _dbSet;
 
-        public Repository(CSDLBanMoHinh context)
+        public Repository(BanMoHinh context)
         {
             _context = context;
             _dbSet = _context.Set<T>();

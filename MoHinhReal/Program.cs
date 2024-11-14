@@ -1,5 +1,5 @@
 ﻿using BLL;
-using BLL.Interface;
+using BLL.Interfaces;
 using DAL;
 using DAL.Interfaces;
 using DAL.Models;
@@ -11,7 +11,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Các dịch vụ khác như DbContext, Swagger, v.v.
-builder.Services.AddDbContext<CSDLBanMoHinh>(options =>
+builder.Services.AddDbContext<BanMoHinh>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 

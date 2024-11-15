@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,10 +36,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization(options =>
 {
     // Chính sách dành cho Quản trị viên (Admin)
-    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Quản trị viên"));
+    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("1"));
 
     // Chính sách dành cho Khách hàng (Customer)
-    options.AddPolicy("CustomerPolicy", policy => policy.RequireRole("Khách hàng"));
+    options.AddPolicy("CustomerPolicy", policy => policy.RequireRole("0", "1") );
 });
 
 
@@ -83,7 +84,32 @@ builder.Services.AddControllers();
 
 
 // Swagger/OpenAPI
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Please enter the token in the format: Bearer {your_token}",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
+
 
 // Logging configuration
 builder.Logging.AddConsole();

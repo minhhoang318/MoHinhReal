@@ -60,15 +60,18 @@ namespace BLL
         public async Task UpdateKhachHangAsync(int id, KhachHangDTO khachHangDto)
         {
             var khachHang = await _khachHangRepository.GetByIdAsync(id);
-            if (khachHang == null) return;
+            if (khachHang != null)
+            {
+                khachHang.HoTen = khachHangDto.HoTen;
+                khachHang.Email = khachHangDto.Email;
+                khachHang.SDT = khachHangDto.SDT;
+                khachHang.DiaChi = khachHangDto.DiaChi;
 
-            khachHang.HoTen = khachHangDto.HoTen;
-            khachHang.Email = khachHangDto.Email;
-            khachHang.SDT = khachHangDto.SDT;
-            khachHang.DiaChi = khachHangDto.DiaChi;
+                _khachHangRepository.Update(khachHang);
+                await _khachHangRepository.SaveAsync();
+            };
 
-            _khachHangRepository.Update(khachHang);
-            await _khachHangRepository.SaveAsync();
+            
         }
 
         public async Task DeleteKhachHangAsync(int id)

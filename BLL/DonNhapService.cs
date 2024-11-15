@@ -57,14 +57,17 @@ namespace BLL
         public async Task UpdateDonNhapAsync(int id, DonNhapDTO donNhapDto)
         {
             var donNhap = await _donNhapRepository.GetByIdAsync(id);
-            if (donNhap == null) return;
+            if (donNhap != null)
+            {
+                donNhap.NgayNhapHang = donNhapDto.NgayNhapHang;
+                donNhap.NCCID = donNhapDto.NCCID;
+                donNhap.TrangThai = donNhapDto.TrangThai;
 
-            donNhap.NgayNhapHang = donNhapDto.NgayNhapHang;
-            donNhap.NCCID = donNhapDto.NCCID;
-            donNhap.TrangThai = donNhapDto.TrangThai;
+                _donNhapRepository.Update(donNhap);
+                await _donNhapRepository.SaveAsync();
+            };
 
-            _donNhapRepository.Update(donNhap);
-            await _donNhapRepository.SaveAsync();
+            
         }
 
         public async Task DeleteDonNhapAsync(int id)

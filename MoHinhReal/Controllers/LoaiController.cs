@@ -16,14 +16,14 @@ namespace API.Controllers
             _loaiService = loaiService;
         }
 
-        [HttpGet("Hoang")]
+        [HttpGet("List")]
         public async Task<IActionResult> GetAllLoai()
         {
             var loaiList = await _loaiService.GetAllLoaiAsync();
             return Ok(loaiList);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{Search}")]
         public async Task<IActionResult> GetLoaiById(int id)
         {
             var loai = await _loaiService.GetLoaiByIdAsync(id);
@@ -34,7 +34,7 @@ namespace API.Controllers
             return Ok(loai);
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddLoai([FromBody] LoaiDTO loaiDto)
         {
             if (!ModelState.IsValid)
@@ -46,7 +46,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetLoaiById), new { id = loaiDto.LoaiID }, loaiDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdateLoai(int id, [FromBody] LoaiDTO loaiDto)
         {
             if (!ModelState.IsValid)
@@ -58,7 +58,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteLoai(int id)
         {
             await _loaiService.DeleteLoaiAsync(id);

@@ -16,14 +16,14 @@ namespace API.Controllers
             _nccService = nccService;
         }
 
-        [HttpGet]
+        [HttpGet("List")]
         public async Task<IActionResult> GetAllNCC()
         {
             var nccList = await _nccService.GetAllNCCAsync();
             return Ok(nccList);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{Search}")]
         public async Task<IActionResult> GetNCCById(int id)
         {
             var ncc = await _nccService.GetNCCByIdAsync(id);
@@ -34,7 +34,7 @@ namespace API.Controllers
             return Ok(ncc);
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddNCC([FromBody] NCCDTO nccDto)
         {
             if (!ModelState.IsValid)
@@ -46,7 +46,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetNCCById), new { id = nccDto.NCCID }, nccDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("update")]
         public async Task<IActionResult> UpdateNCC(int id, [FromBody] NCCDTO nccDto)
         {
             if (!ModelState.IsValid)
@@ -58,7 +58,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteNCC(int id)
         {
             await _nccService.DeleteNCCAsync(id);

@@ -16,14 +16,14 @@ namespace API.Controllers
             _thanhToanService = thanhToanService;
         }
 
-        [HttpGet]
+        [HttpGet("List")]
         public async Task<IActionResult> GetAllThanhToan()
         {
             var thanhToanList = await _thanhToanService.GetAllThanhToanAsync();
             return Ok(thanhToanList);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{Search}")]
         public async Task<IActionResult> GetThanhToanById(int id)
         {
             var thanhToan = await _thanhToanService.GetThanhToanByIdAsync(id);
@@ -34,7 +34,7 @@ namespace API.Controllers
             return Ok(thanhToan);
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddThanhToan([FromBody] ThanhToanDTO thanhToanDto)
         {
             if (!ModelState.IsValid)
@@ -46,8 +46,8 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetThanhToanById), new { id = thanhToanDto.ThanhToanID }, thanhToanDto);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateThanhToan(int id, [FromBody] ThanhToanDTO thanhToanDto)
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateThanhToan(int id,ThanhToanDTO thanhToanDto)
         {
             if (!ModelState.IsValid)
             {
@@ -58,7 +58,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteThanhToan(int id)
         {
             await _thanhToanService.DeleteThanhToanAsync(id);

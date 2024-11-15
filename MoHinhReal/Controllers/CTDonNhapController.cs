@@ -16,14 +16,14 @@ namespace API.Controllers
             _ctDonNhapService = ctDonNhapService;
         }
 
-        [HttpGet]
+        [HttpGet("List")]
         public async Task<IActionResult> GetAllCTDonNhap()
         {
             var ctDonNhapList = await _ctDonNhapService.GetAllCTDonNhapAsync();
             return Ok(ctDonNhapList);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{Search}")]
         public async Task<IActionResult> GetCTDonNhapById(int id)
         {
             var ctDonNhap = await _ctDonNhapService.GetCTDonNhapByIdAsync(id);
@@ -34,7 +34,7 @@ namespace API.Controllers
             return Ok(ctDonNhap);
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddCTDonNhap([FromBody] CTDonNhapDTO ctDonNhapDto)
         {
             if (!ModelState.IsValid)
@@ -46,7 +46,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetCTDonNhapById), new { id = ctDonNhapDto.CTDonNhapID }, ctDonNhapDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdateCTDonNhap(int id, [FromBody] CTDonNhapDTO ctDonNhapDto)
         {
             if (!ModelState.IsValid)
@@ -58,7 +58,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteCTDonNhap(int id)
         {
             await _ctDonNhapService.DeleteCTDonNhapAsync(id);

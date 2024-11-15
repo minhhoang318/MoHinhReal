@@ -66,16 +66,18 @@ namespace BLL
         public async Task UpdateSanPhamAsync(int id, SanPhamDTO sanPhamDto)
         {
             var sanPham = await _sanPhamRepository.GetByIdAsync(id);
-            if (sanPham == null) return;
+            if (sanPham != null)
+            {
+                sanPham.TenSanPham = sanPhamDto.TenSanPham;
+                sanPham.GiaBan = sanPhamDto.GiaBan;
+                sanPham.MotaSanPham = sanPhamDto.MotaSanPham;
+                sanPham.LoaiID = sanPhamDto.LoaiID;
+                sanPham.ImageURL = sanPhamDto.ImageURL;
 
-            sanPham.TenSanPham = sanPhamDto.TenSanPham;
-            sanPham.GiaBan = sanPhamDto.GiaBan;
-            sanPham.MotaSanPham = sanPhamDto.MotaSanPham;
-            sanPham.LoaiID = sanPhamDto.LoaiID;
-            sanPham.ImageURL = sanPhamDto.ImageURL;
+                _sanPhamRepository.Update(sanPham);
+                await _sanPhamRepository.SaveAsync();
+            }
 
-            _sanPhamRepository.Update(sanPham);
-            await _sanPhamRepository.SaveAsync();
         }
 
         public async Task DeleteSanPhamAsync(int id)

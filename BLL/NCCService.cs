@@ -57,14 +57,17 @@ namespace BLL
         public async Task UpdateNCCAsync(int id, NCCDTO nccDto)
         {
             var ncc = await _nccRepository.GetByIdAsync(id);
-            if (ncc == null) return;
+            if (ncc != null)
+            {
+                ncc.TenNCC = nccDto.TenNCC;
+                ncc.DiaChi = nccDto.DiaChi;
+                ncc.SDT = nccDto.SDT;
 
-            ncc.TenNCC = nccDto.TenNCC;
-            ncc.DiaChi = nccDto.DiaChi;
-            ncc.SDT = nccDto.SDT;
+                _nccRepository.Update(ncc);
+                await _nccRepository.SaveAsync();
+            };
 
-            _nccRepository.Update(ncc);
-            await _nccRepository.SaveAsync();
+            
         }
 
         public async Task DeleteNCCAsync(int id)

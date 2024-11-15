@@ -11,7 +11,7 @@ namespace DAL
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly BanMoHinh _context;
+        protected readonly BanMoHinh _context;
         private readonly DbSet<T> _dbSet;
 
         public Repository(BanMoHinh context)

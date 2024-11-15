@@ -57,14 +57,17 @@ namespace BLL
         public async Task UpdateLoaiAsync(int id, LoaiDTO loaiDto)
         {
             var loai = await _loaiRepository.GetByIdAsync(id);
-            if (loai == null) return;
+            if (loai != null)
+            {
+                loai.TenLoai = loaiDto.TenLoai;
+                loai.MotaLoai = loaiDto.MotaLoai;
+                loai.ParentID = loaiDto.ParentID;
 
-            loai.TenLoai = loaiDto.TenLoai;
-            loai.MotaLoai = loaiDto.MotaLoai;
-            loai.ParentID = loaiDto.ParentID;
+                _loaiRepository.Update(loai);
+                await _loaiRepository.SaveAsync();
+            };
 
-            _loaiRepository.Update(loai);
-            await _loaiRepository.SaveAsync();
+            
         }
 
         public async Task DeleteLoaiAsync(int id)

@@ -2,6 +2,7 @@
 using DAL.Interfaces;
 using DAL.Models;
 using DTO;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -57,13 +58,14 @@ namespace BLL
         public async Task UpdateThanhToanAsync(int id, ThanhToanDTO thanhToanDto)
         {
             var thanhToan = await _thanhToanRepository.GetByIdAsync(id);
-            if (thanhToan == null) return;
+            if (thanhToan != null)
+            {
+                thanhToan.PhuongThuc = thanhToanDto.PhuongThuc;
+                thanhToan.NgayThanhToan = thanhToanDto.NgayThanhToan;
 
-            thanhToan.PhuongThuc = thanhToanDto.PhuongThuc;
-            thanhToan.NgayThanhToan = thanhToanDto.NgayThanhToan;
-
-            _thanhToanRepository.Update(thanhToan);
-            await _thanhToanRepository.SaveAsync();
+                _thanhToanRepository.Update(thanhToan);
+                await _thanhToanRepository.SaveAsync();
+            };
         }
 
         public async Task DeleteThanhToanAsync(int id)

@@ -50,25 +50,21 @@ public class NguoiDungService : INguoiDungService
 
     public async Task<NguoiDungDTO> AuthenticateUserAsync(LoginDTO loginDto)
     {
-        var nguoiDung = await _nguoiDungRepository.GetAllAsync();
-        var user = nguoiDung.FirstOrDefault(u => u.Taikhoan == loginDto.Taikhoan);
+        // Tìm người dùng trong cơ sở dữ liệu trực tiếp theo TaiKhoan và MatKhau
+        var nguoiDung = await _nguoiDungRepository.AuthenticateUserAsync(loginDto.Taikhoan, loginDto.MatKhau);
 
-        if (user == null || user.MatKhau != loginDto.MatKhau)  // So sánh mật khẩu trực tiếp (không mã hóa)
+        if (nguoiDung == null)
             return null;
 
-        var token = GenerateJwtToken(new NguoiDungDTO
+        // Nếu người dùng tồn tại và mật khẩu đúng (nếu mật khẩu được mã hóa, so sánh mã hóa mật khẩu)
+        var userDto = new NguoiDungDTO
         {
-            NguoiDungID = user.NguoiDungID,
-            Taikhoan = user.Taikhoan,
-            Quyen = user.Quyen
-        });
-
-        return new NguoiDungDTO
-        {
-            NguoiDungID = user.NguoiDungID,
-            Taikhoan = user.Taikhoan,
-            Quyen = user.Quyen
+            NguoiDungID = nguoiDung.NguoiDungID,
+            Taikhoan = nguoiDung.Taikhoan,
+            Quyen = nguoiDung.Quyen
         };
+
+        return userDto;
     }
 
     public string GenerateJwtToken(NguoiDungDTO user)
@@ -108,23 +104,35 @@ public class NguoiDungService : INguoiDungService
 
     public async Task UpdateNguoiDungAsync(int id, NguoiDungDTO nguoiDungDto)
     {
+        // Lấy người dùng từ cơ sở dữ liệu theo ID
         var nguoiDung = await _nguoiDungRepository.GetByIdAsync(id);
-        if (nguoiDung == null) return;
-
-        nguoiDung.HoTen = nguoiDungDto.HoTen;
-        nguoiDung.Taikhoan = nguoiDungDto.Taikhoan;
-        if (!string.IsNullOrEmpty(nguoiDungDto.MatKhau))  // Kiểm tra nếu mật khẩu mới không rỗng
+        if (nguoiDung != null)
         {
-            nguoiDung.MatKhau = nguoiDungDto.MatKhau;  // Không mã hóa mật khẩu mới
-        }
-        nguoiDung.Quyen = nguoiDungDto.Quyen;
+            // Cập nhật các trường thông tin từ DTO vào đối tượng NguoiDung
+            nguoiDung.HoTen = nguoiDungDto.HoTen;
+            nguoiDung.Taikhoan = nguoiDungDto.Taikhoan;
 
-        _nguoiDungRepository.Update(nguoiDung);
-        await _nguoiDungRepository.SaveAsync();
+            // Kiểm tra và cập nhật mật khẩu nếu không rỗng
+            if (!string.IsNullOrEmpty(nguoiDungDto.MatKhau))
+            {
+                nguoiDung.MatKhau = nguoiDungDto.MatKhau;  // Không mã hóa mật khẩu nếu chưa mã hóa
+            }
+
+            nguoiDung.Quyen = nguoiDungDto.Quyen;
+
+            // Cập nhật đối tượng vào cơ sở dữ liệu
+            _nguoiDungRepository.Update(nguoiDung);
+            await _nguoiDungRepository.SaveAsync();  // Lưu thay đổi vào cơ sở dữ liệu
+        }
+        else
+        {
+            // Trả về lỗi nếu không tìm thấy người dùng với ID đó
+            throw new KeyNotFoundException($"Người dùng với ID {id} không tìm thấy.");
+        }
     }
 
 
-    public async Task DeleteNguoiDungAsync(int id)
+        public async Task DeleteNguoiDungAsync(int id)
     {
         var nguoiDung = await _nguoiDungRepository.GetByIdAsync(id);
         if (nguoiDung == null) return;

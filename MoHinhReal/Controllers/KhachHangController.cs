@@ -16,14 +16,14 @@ namespace API.Controllers
             _khachHangService = khachHangService;
         }
 
-        [HttpGet]
+        [HttpGet("List")]
         public async Task<IActionResult> GetAllKhachHang()
         {
             var khachHangList = await _khachHangService.GetAllKhachHangAsync();
             return Ok(khachHangList);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{Search}")]
         public async Task<IActionResult> GetKhachHangById(int id)
         {
             var khachHang = await _khachHangService.GetKhachHangByIdAsync(id);
@@ -34,7 +34,7 @@ namespace API.Controllers
             return Ok(khachHang);
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddKhachHang([FromBody] KhachHangDTO khachHangDto)
         {
             if (!ModelState.IsValid)
@@ -46,7 +46,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetKhachHangById), new { id = khachHangDto.KhachHangID }, khachHangDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdateKhachHang(int id, [FromBody] KhachHangDTO khachHangDto)
         {
             if (!ModelState.IsValid)
@@ -58,7 +58,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteKhachHang(int id)
         {
             await _khachHangService.DeleteKhachHangAsync(id);

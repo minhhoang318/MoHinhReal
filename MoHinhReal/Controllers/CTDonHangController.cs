@@ -16,14 +16,14 @@ namespace API.Controllers
             _ctDonHangService = ctDonHangService;
         }
 
-        [HttpGet]
+        [HttpGet("List")]
         public async Task<IActionResult> GetAllCTDonHang()
         {
             var ctDonHangList = await _ctDonHangService.GetAllCTDonHangAsync();
             return Ok(ctDonHangList);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{Search}")]
         public async Task<IActionResult> GetCTDonHangById(int id)
         {
             var ctDonHang = await _ctDonHangService.GetCTDonHangByIdAsync(id);
@@ -34,7 +34,7 @@ namespace API.Controllers
             return Ok(ctDonHang);
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddCTDonHang([FromBody] CTDonHangDTO ctDonHangDto)
         {
             if (!ModelState.IsValid)
@@ -46,7 +46,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetCTDonHangById), new { id = ctDonHangDto.CTDonHangID }, ctDonHangDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdateCTDonHang(int id, [FromBody] CTDonHangDTO ctDonHangDto)
         {
             if (!ModelState.IsValid)
@@ -58,7 +58,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteCTDonHang(int id)
         {
             await _ctDonHangService.DeleteCTDonHangAsync(id);

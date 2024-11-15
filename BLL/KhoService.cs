@@ -60,14 +60,17 @@ namespace BLL
         public async Task UpdateKhoAsync(int id, KhoDTO khoDto)
         {
             var kho = await _khoRepository.GetByIdAsync(id);
-            if (kho == null) return;
+            if (kho != null)
+            {
+                kho.SLTon = khoDto.SLTon;
+                kho.NgayNhapKho = khoDto.NgayNhapKho;
+                kho.GiaNhap = khoDto.GiaNhap;
 
-            kho.SLTon = khoDto.SLTon;
-            kho.NgayNhapKho = khoDto.NgayNhapKho;
-            kho.GiaNhap = khoDto.GiaNhap;
+                _khoRepository.Update(kho);
+                await _khoRepository.SaveAsync();
+            };
 
-            _khoRepository.Update(kho);
-            await _khoRepository.SaveAsync();
+            
         }
 
         public async Task DeleteKhoAsync(int id)

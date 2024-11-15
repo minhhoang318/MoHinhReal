@@ -31,6 +31,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// Cấu hình Authorization (Phân quyền)
+builder.Services.AddAuthorization(options =>
+{
+    // Chính sách dành cho Quản trị viên (Admin)
+    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Quản trị viên"));
+
+    // Chính sách dành cho Khách hàng (Customer)
+    options.AddPolicy("CustomerPolicy", policy => policy.RequireRole("Khách hàng"));
+});
+
+
+
 // Đăng ký các Repository và Service thông qua Extension Method
 builder.Services.AddScoped<ICTDonHangService, CTDonHangService>();
 builder.Services.AddScoped<ICTDonHangRepository, CTDonHangRepository>();

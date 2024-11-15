@@ -16,25 +16,6 @@ namespace API.Controllers
             _nguoiDungService = nguoiDungService;
         }
 
-        // API đăng nhập
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
-        {
-            var user = await _nguoiDungService.AuthenticateUserAsync(loginDto);
-
-            if (user == null)
-            {
-                return Unauthorized("Invalid username or password");
-            }
-
-            var token = _nguoiDungService.GenerateJwtToken(user);
-
-            return Ok(new
-            {
-                User = user,
-                Token = token
-            });
-        }
 
         // API tạo người dùng mới (register)
         [HttpPost("register")]
@@ -44,14 +25,14 @@ namespace API.Controllers
             return Ok("User created successfully");
         }
 
-        [HttpGet]
+        [HttpGet("List")]
         public async Task<IActionResult> GetAllNguoiDung()
         {
             var nguoiDungList = await _nguoiDungService.GetAllNguoiDungAsync();
             return Ok(nguoiDungList);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{SearchById}")]
         public async Task<IActionResult> GetNguoiDungById(int id)
         {
             var nguoiDung = await _nguoiDungService.GetNguoiDungByIdAsync(id);
@@ -62,7 +43,7 @@ namespace API.Controllers
             return Ok(nguoiDung);
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddNguoiDung([FromBody] NguoiDungDTO nguoiDungDto)
         {
             if (!ModelState.IsValid)
@@ -74,7 +55,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetNguoiDungById), new { id = nguoiDungDto.NguoiDungID }, nguoiDungDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{update}")]
         public async Task<IActionResult> UpdateNguoiDung(int id, [FromBody] NguoiDungDTO nguoiDungDto)
         {
             if (!ModelState.IsValid)
@@ -86,7 +67,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{Delete}")]
         public async Task<IActionResult> DeleteNguoiDung(int id)
         {
             await _nguoiDungService.DeleteNguoiDungAsync(id);

@@ -16,14 +16,14 @@ namespace API.Controllers
             _khoService = khoService;
         }
 
-        [HttpGet]
+        [HttpGet("List")]
         public async Task<IActionResult> GetAllKho()
         {
             var khoList = await _khoService.GetAllKhoAsync();
             return Ok(khoList);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{Search}")]
         public async Task<IActionResult> GetKhoById(int id)
         {
             var kho = await _khoService.GetKhoByIdAsync(id);
@@ -34,7 +34,7 @@ namespace API.Controllers
             return Ok(kho);
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddKho([FromBody] KhoDTO khoDto)
         {
             if (!ModelState.IsValid)
@@ -46,7 +46,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetKhoById), new { id = khoDto.KhoID }, khoDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdateKho(int id, [FromBody] KhoDTO khoDto)
         {
             if (!ModelState.IsValid)
@@ -58,7 +58,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteKho(int id)
         {
             await _khoService.DeleteKhoAsync(id);

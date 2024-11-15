@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BLL.Interfaces;
 using DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -15,15 +16,17 @@ namespace API.Controllers
             _sanPhamService = sanPhamService;
         }
 
-        // GET: api/SanPham
-        [HttpGet]
+        // API này dành cho cả Admin và Customer để xem danh sách sản phẩm
+        [Authorize(Policy = "CustomerPolicy")]
+        [HttpGet("List")]
         public async Task<IActionResult> GetAllSanPham()
         {
             var sanPhams = await _sanPhamService.GetAllSanPhamAsync();
             return Ok(sanPhams);
         }
 
-        // GET: api/SanPham/{id}
+        // API này chỉ dành cho Admin để tìm sản phẩm theo ID
+        [Authorize(Policy = "AdminPolicy")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSanPhamById(int id)
         {
@@ -35,8 +38,9 @@ namespace API.Controllers
             return Ok(sanPham);
         }
 
-        // POST: api/SanPham
-        [HttpPost]
+        // API này chỉ dành cho Admin để thêm sản phẩm
+        [Authorize(Policy = "AdminPolicy")]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddSanPham([FromBody] SanPhamDTO sanPhamDto)
         {
             if (!ModelState.IsValid)
@@ -48,8 +52,9 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetSanPhamById), new { id = sanPhamDto.SanPhamID }, sanPhamDto);
         }
 
-        // PUT: api/SanPham/{id}
-        [HttpPut("{id}")]
+        // API này chỉ dành cho Admin để cập nhật sản phẩm
+        [Authorize(Policy = "AdminPolicy")]
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdateSanPham(int id, [FromBody] SanPhamDTO sanPhamDto)
         {
             if (!ModelState.IsValid)
@@ -61,8 +66,9 @@ namespace API.Controllers
             return NoContent();
         }
 
-        // DELETE: api/SanPham/{id}
-        [HttpDelete("{id}")]
+        // API này chỉ dành cho Admin để xóa sản phẩm
+        [Authorize(Policy = "AdminPolicy")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteSanPham(int id)
         {
             await _sanPhamService.DeleteSanPhamAsync(id);

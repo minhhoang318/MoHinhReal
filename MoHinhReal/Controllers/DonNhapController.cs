@@ -16,14 +16,14 @@ namespace API.Controllers
             _donNhapService = donNhapService;
         }
 
-        [HttpGet]
+        [HttpGet("List")]
         public async Task<IActionResult> GetAllDonNhap()
         {
             var donNhapList = await _donNhapService.GetAllDonNhapAsync();
             return Ok(donNhapList);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{Search}")]
         public async Task<IActionResult> GetDonNhapById(int id)
         {
             var donNhap = await _donNhapService.GetDonNhapByIdAsync(id);
@@ -34,7 +34,7 @@ namespace API.Controllers
             return Ok(donNhap);
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddDonNhap([FromBody] DonNhapDTO donNhapDto)
         {
             if (!ModelState.IsValid)
@@ -46,7 +46,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetDonNhapById), new { id = donNhapDto.DonNhapID }, donNhapDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdateDonNhap(int id, [FromBody] DonNhapDTO donNhapDto)
         {
             if (!ModelState.IsValid)
@@ -58,7 +58,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteDonNhap(int id)
         {
             await _donNhapService.DeleteDonNhapAsync(id);

@@ -16,14 +16,14 @@ namespace API.Controllers
             _donHangService = donHangService;
         }
 
-        [HttpGet]
+        [HttpGet("List")]
         public async Task<IActionResult> GetAllDonHang()
         {
             var donHangList = await _donHangService.GetAllDonHangAsync();
             return Ok(donHangList);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{Search}")]
         public async Task<IActionResult> GetDonHangById(int id)
         {
             var donHang = await _donHangService.GetDonHangByIdAsync(id);
@@ -34,7 +34,7 @@ namespace API.Controllers
             return Ok(donHang);
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddDonHang([FromBody] DonHangDTO donHangDto)
         {
             if (!ModelState.IsValid)
@@ -46,7 +46,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetDonHangById), new { id = donHangDto.DonHangID }, donHangDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdateDonHang(int id, [FromBody] DonHangDTO donHangDto)
         {
             if (!ModelState.IsValid)
@@ -58,7 +58,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteDonHang(int id)
         {
             await _donHangService.DeleteDonHangAsync(id);

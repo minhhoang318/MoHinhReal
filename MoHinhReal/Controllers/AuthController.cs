@@ -1,5 +1,4 @@
 ﻿using BLL.Interfaces;
-using BLL;
 using DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -29,13 +28,12 @@ namespace API.Controllers
                 return Unauthorized("Invalid username or password");  // Trả về lỗi nếu đăng nhập thất bại
             }
 
-            // Trả về token
-            var token = _nguoiDungService.GenerateJwtToken(user); // Gọi trực tiếp từ NguoiDungService
+            // Trả về token nếu xác thực thành công
+            var token = _nguoiDungService.GenerateJwtToken(user);
 
             return Ok(new
             {
-                User = user,
-                Token = token
+                Token = token  // Trả về token cho người dùng
             });
         }
     }

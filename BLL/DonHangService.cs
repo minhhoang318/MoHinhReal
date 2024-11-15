@@ -60,15 +60,18 @@ namespace BLL
         public async Task UpdateDonHangAsync(int id, DonHangDTO donHangDto)
         {
             var donHang = await _donHangRepository.GetByIdAsync(id);
-            if (donHang == null) return;
+            if (donHang != null)
+            {
+                donHang.KhachHangID = donHangDto.KhachHangID;
+                donHang.NgayDat = donHangDto.NgayDat;
+                donHang.TongTien = donHangDto.TongTien;
+                donHang.TrangThai = donHangDto.TrangThai;
 
-            donHang.KhachHangID = donHangDto.KhachHangID;
-            donHang.NgayDat = donHangDto.NgayDat;
-            donHang.TongTien = donHangDto.TongTien;
-            donHang.TrangThai = donHangDto.TrangThai;
+                _donHangRepository.Update(donHang);
+                await _donHangRepository.SaveAsync();
+            };
 
-            _donHangRepository.Update(donHang);
-            await _donHangRepository.SaveAsync();
+            
         }
 
         public async Task DeleteDonHangAsync(int id)

@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Các dịch vụ khác như DbContext, Swagger, v.v.
 builder.Services.AddDbContext<BanMoHinh>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+//
 
 // Cấu hình JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

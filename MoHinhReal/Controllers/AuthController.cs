@@ -36,5 +36,14 @@ namespace API.Controllers
                 Token = token  // Trả về token cho người dùng
             });
         }
+
+        // API tạo người dùng mới (register)
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] NguoiDungDTO nguoiDungDto)
+        {
+            await _nguoiDungService.AddNguoiDungAsync(nguoiDungDto);
+            return Ok("User created successfully");
+        }
+
     }
 }

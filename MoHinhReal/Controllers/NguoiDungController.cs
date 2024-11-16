@@ -16,21 +16,13 @@ namespace API.Controllers
             _nguoiDungService = nguoiDungService;
         }
 
-
-        // API tạo người dùng mới (register)
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] NguoiDungDTO nguoiDungDto)
-        {
-            await _nguoiDungService.AddNguoiDungAsync(nguoiDungDto);
-            return Ok("User created successfully");
-        }
-
         [HttpGet("List")]
         public async Task<IActionResult> GetAllNguoiDung()
         {
             var nguoiDungList = await _nguoiDungService.GetAllNguoiDungAsync();
             return Ok(nguoiDungList);
         }
+
 
         [HttpGet("{SearchById}")]
         public async Task<IActionResult> GetNguoiDungById(int id)

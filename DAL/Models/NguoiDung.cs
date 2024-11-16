@@ -14,8 +14,6 @@ namespace DAL.Models
         [Column("NguoiDungID")]
         public int NguoiDungID { get; set; }
         [StringLength(255)]
-        public string HoTen { get; set; } = null!;
-        [StringLength(100)]
         public string Taikhoan { get; set; } = null!;
         [StringLength(255)]
         public string MatKhau { get; set; } = null!;

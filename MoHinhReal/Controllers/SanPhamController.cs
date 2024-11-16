@@ -52,8 +52,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        // API cho Khách hàng (Customer) chỉ được phép xem sản phẩm
-        [Authorize(Policy = "CustomerPolicy")] // Chỉ dành cho Khách hàng
+
         [HttpGet("List")]
         public async Task<IActionResult> GetAllSanPham()
         {
@@ -61,7 +60,7 @@ namespace API.Controllers
             return Ok(sanPhams);
         }
 
-        [Authorize(Policy = "CustomerPolicy")]  // Chỉ dành cho Khách hàng
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSanPhamById(int id)
         {

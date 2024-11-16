@@ -25,7 +25,6 @@ public class NguoiDungService : INguoiDungService
         return nguoiDungList.Select(nd => new NguoiDungDTO
         {
             NguoiDungID = nd.NguoiDungID,
-            HoTen = nd.HoTen,
             Taikhoan = nd.Taikhoan,
             MatKhau = nd.MatKhau,
             Quyen = nd.Quyen
@@ -41,7 +40,6 @@ public class NguoiDungService : INguoiDungService
         return new NguoiDungDTO
         {
             NguoiDungID = nguoiDung.NguoiDungID,
-            HoTen = nguoiDung.HoTen,
             Taikhoan = nguoiDung.Taikhoan,
             MatKhau = nguoiDung.MatKhau,
             Quyen = nguoiDung.Quyen
@@ -93,7 +91,6 @@ public class NguoiDungService : INguoiDungService
     {
         var nguoiDung = new NguoiDung
         {
-            HoTen = nguoiDungDto.HoTen,
             Taikhoan = nguoiDungDto.Taikhoan,
             MatKhau = nguoiDungDto.MatKhau,  // Không mã hóa mật khẩu
             Quyen = nguoiDungDto.Quyen
@@ -109,7 +106,6 @@ public class NguoiDungService : INguoiDungService
         if (nguoiDung != null)
         {
             // Cập nhật các trường thông tin từ DTO vào đối tượng NguoiDung
-            nguoiDung.HoTen = nguoiDungDto.HoTen;
             nguoiDung.Taikhoan = nguoiDungDto.Taikhoan;
 
             // Kiểm tra và cập nhật mật khẩu nếu không rỗng
